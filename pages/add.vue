@@ -1,17 +1,15 @@
 <template>
-  <div class="container">
-    <div class="large-12 medium-12 small-12 cell">
+  <div class="form-group">
       <label>File
-        <input type="file" ref="file" v-on:change="handleFileUpload()"/>
+        <input type="file" class="form-control-file" ref="file" v-on:change="handleFileUpload()"/>
       </label>
-       <label>File
-        <input type="text"  v-model="title"/>
+       <label>Title
+        <input type="text"  class="form-control" v-model="title"/>
       </label>
-       <label>File
-        <input type="text"  v-model="content"/>
+       <label>Description
+        <input type="text"  class="form-control" v-model="content"/>
       </label>
-      <button v-on:click="submitFile()">Submit</button>
-    </div>
+      <button v-on:click="submitFile()" class="btn btn-default">Add</button>
   </div>
 </template>
 
@@ -53,3 +51,21 @@
   }
 </script>
 
+
+
+<style scoped>
+    .form-group{
+        width: 100% !important;
+        display: flex;
+        align-items:center;
+        flex-direction:column;
+        margin-top:50px;
+    }
+    .form-group input{
+      width:300px !important;
+      height:35px;
+      outline:none !important;
+      padding-left:10px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    </style>

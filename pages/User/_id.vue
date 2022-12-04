@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <template>    
  <div>
   <div>
@@ -33,11 +39,8 @@
  async created() {
     try {        
         const cookieValue = document.cookie.split('; ').find((row) => row.startsWith('jwt=')).split('=')[1]; 
-        let response  = await this.$axios.$get('/api/userss', {
-                headers: {
-                    'Authorization': `${cookieValue}`
-                }
-              })
+         let id = this.$route.params.id
+        let response  = await this.$axios.$get(`/api/${id}/user`)
         this.todos = response
         let responses  = await this.$axios.$get(`http://localhost:8000/api/${this.todos[0].name}/porfile_post`)
         this.posts = responses

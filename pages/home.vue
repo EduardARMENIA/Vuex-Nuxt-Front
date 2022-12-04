@@ -42,6 +42,7 @@
         }
       },
         async submitForm(id, content){
+                alert(1)
                 let post =  await this.$axios.$post(`/api/${id}/comment`, {content:content});
                 window.location.reload()
             },

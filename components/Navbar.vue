@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Nuxt SSR</a>
+    <a class="navbar-brand" href="#">Nuxt Social Media</a>
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
@@ -24,8 +24,13 @@
             Profile
           </nuxt-link>
         </li>
+         <li class="nav-item">
+          <nuxt-link active-class="active"  v-if="hasToken" class="nav-link" to="/users">
+            Users
+          </nuxt-link>
+        </li>
         <li class="nav-item" v-if="!hasToken">
-          <nuxt-link active-class="active" class="nav-link" to="/logins">
+          <nuxt-link active-class="active" class="nav-link" to="/">
             Login
           </nuxt-link>
         </li>
@@ -58,7 +63,7 @@ export default {
     logout() {
        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
       this.$store.dispatch('logout')
-      this.$router.push('/logins')
+      this.$router.push('/')
     }
   }
 }
