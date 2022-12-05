@@ -15,8 +15,8 @@
  </div> 
 </template>
 <script>
-  import UserPost from "@/components/UserSettings/UserPost";
-  import Profile from "@/components/UserSettings/Profile";
+  import UserPost from "@/components/ProfileById/UserPost";
+  import Profile from "@/components/ProfileById/Profile";
   import axios from "axios"; 
   import {useRouter} from "vue-router";
   import {useStore} from "vuex";
