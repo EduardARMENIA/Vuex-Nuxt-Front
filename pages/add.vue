@@ -1,57 +1,57 @@
 <template>
   <div class="form-group">
-      <label>File
-        <input type="file" class="form-control-file" ref="file" v-on:change="handleFileUpload()"/>
-      </label>
-       <label>Title
-        <input type="text"  class="form-control" v-model="title"/>
-      </label>
-       <label>Description
-        <input type="text"  class="form-control" v-model="content"/>
-      </label>
-      <button v-on:click="submitFile()" class="btn btn-default">Add</button>
+    <label>File
+      <input ref="file" type="file" class="form-control-file" @change="handleFileUpload()">
+    </label>
+    <label>Title
+      <input v-model="title" type="text" class="form-control">
+    </label>
+    <label>Description
+      <input v-model="content" type="text" class="form-control">
+    </label>
+    <button class="btn btn-default" @click="submitFile()">
+      Add
+    </button>
   </div>
 </template>
 
 <script>
-  export default {
-    data(){
-      return {
-        file: '',
-        title: '',
-        content: ''
-      }
-    },
-    methods: {
-      submitFile(){
-            let formData = new FormData();
-            formData.append('image', this.file);
-            formData.append('title', this.title);
-            formData.append('content', this.content);
-            const cookieValue = document.cookie.split('; ').find((row) => row.startsWith('jwt=')).split('=')[1]; 
-            this.$axios.$post( '/api/post_image',
-                formData,
-                {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `${cookieValue}`
-                }
-              },
-             window.location.reload()).then(function(){
-          console.log('SUCCESS!!');
+export default {
+  middleware: ['auth'],
+  data () {
+    return {
+      file: '',
+      title: '',
+      content: ''
+    }
+  },
+  methods: {
+    submitFile () {
+      const formData = new FormData()
+      formData.append('image', this.file)
+      formData.append('title', this.title)
+      formData.append('content', this.content)
+      const cookieValue = document.cookie.split('; ').find(row => row.startsWith('jwt=')).split('=')[1]
+      this.$axios.$post('/api/post_image',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `${cookieValue}`
+          }
+        },
+        window.location.reload()).then(function () {
+      })
+        .catch(function () {
+          return 'FAILURE!!'
         })
-        .catch(function(){
-          console.log('FAILURE!!');
-        });
-      },
-      handleFileUpload(){
-        this.file = this.$refs.file.files[0];
-      }
+    },
+    handleFileUpload () {
+      this.file = this.$refs.file.files[0]
     }
   }
+}
 </script>
-
-
 
 <style scoped>
     .form-group{

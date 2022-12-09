@@ -10,31 +10,31 @@
           </nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link active-class="active"  v-if="hasToken" class="nav-link" to="/about">
+          <nuxt-link active-class="active"  v-if="this.$store.state.token" class="nav-link" to="/about">
             About
           </nuxt-link>
         </li>
          <li class="nav-item">
-          <nuxt-link active-class="active"  v-if="hasToken" class="nav-link" to="/add">
+          <nuxt-link active-class="active"  v-if="this.$store.state.token" class="nav-link" to="/add">
             Add Post
           </nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link active-class="active"  v-if="hasToken" class="nav-link" to="/profile">
+          <nuxt-link active-class="active"  v-if="this.$store.state.token" class="nav-link" to="/profile">
             Profile
           </nuxt-link>
         </li>
          <li class="nav-item">
-          <nuxt-link active-class="active"  v-if="hasToken" class="nav-link" to="/users">
+          <nuxt-link active-class="active"  v-if="this.$store.state.token" class="nav-link" to="/users">
             Users
           </nuxt-link>
         </li>
-        <li class="nav-item" v-if="!hasToken">
+        <li class="nav-item" v-if="!this.$store.state.token">
           <nuxt-link active-class="active" class="nav-link" to="/">
             Login
           </nuxt-link>
         </li>
-        <li class="nav-item" v-if="!hasToken">
+        <li class="nav-item" v-if="!this.$store.state.token">
           <nuxt-link active-class="active" class="nav-link" to="/register">
             Register
           </nuxt-link>
@@ -54,6 +54,7 @@
 <script>
 import {useStore} from "vuex";
 export default {
+  middleware: ['auth'],
   computed: {
     hasToken() {
       return this.$store.getters.hasToken
@@ -62,8 +63,8 @@ export default {
   methods: {
     logout() {
        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      this.$store.dispatch('logout')
-      this.$router.push('/')
+       this.$store.dispatch('logout'),
+       this.$router.push('/')
     }
   }
 }

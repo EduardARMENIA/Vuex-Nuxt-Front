@@ -3,13 +3,13 @@ export const state = () => ({
 })
 
 export const mutations = {
-  setUsers(state, users) {
+  setUsers (state, users) {
     state.users = users
   }
 }
 
 export const actions = {
-  async fetch({commit}) {
+  async fetch ({ commit }) {
     const users = await this.$axios.$get('https://jsonplaceholder.typicode.com/users')
     commit('setUsers', users)
   }

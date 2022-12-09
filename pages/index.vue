@@ -1,14 +1,9 @@
-
 <template>
   <div>
     <div class="container">
       <div class="screen">
         <div class="screen__content">
           <div class="login">
-            <div class="login__field">
-              <i class="login__icon fas fa-lock" />
-              <input v-model="name" class="login__input" type="text" placeholder="Name"><br>
-            </div>
             <div class="login__field">
               <i class="login__icon fas fa-user" />
               <input v-model="email" class="login__input" type="email" placeholder="Email"><br>
@@ -18,9 +13,16 @@
               <input v-model="password" class="login__input" type="password" placeholder="Password"><br>
             </div>
             <button class="button login__submit" @click="submit">
-              <span class="button__text">Register Now</span>
+              <span class="button__text">Log In Now</span>
               <i class="button__icon fas fa-chevron-right" />
             </button>
+          </div>
+          <div class="social-login">
+            <div class="social-icons">
+              <a href="#" class="social-login__icon fab fa-instagram" />
+              <a href="#" class="social-login__icon fab fa-facebook" />
+              <a href="#" class="social-login__icon fab fa-twitter" />
+            </div>
           </div>
         </div>
         <div class="screen__background">
@@ -35,11 +37,11 @@
 </template>
 
 <script>
+import Token from '~/helper/check.js'
 export default {
   data () {
     return {
       todos: [],
-      name: '',
       email: '',
       password: ''
     }
@@ -47,10 +49,11 @@ export default {
   methods: {
 
     async submit () {
-      const post = await this.$axios.$post('/api/register', { name: this.name, email: this.email, password: this.password })
+      const post = await this.$axios.$post('/api/login', { email: this.email, password: this.password })
       if (post.message === 'success') {
+        Token.save(post.token),
         this.$store.dispatch('login')
-        this.$router.push('/')
+        this.$router.push('/home')
       }
     }
 
@@ -61,25 +64,21 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: Raleway, sans-serif;
 }
-
 body {
   background: linear-gradient(90deg, #C7C5F4, #776BCC);
 }
-
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
 }
-
 .screen {
   background: linear-gradient(90deg, #b0b5b1, #696b6a);
   position: relative;
@@ -87,13 +86,11 @@ body {
   width: 360px;
   box-shadow: 0px 0px 24px #5C5696;
 }
-
 .screen__content {
   z-index: 1;
   position: relative;
   height: 100%;
 }
-
 .screen__background {
   position: absolute;
   top: 0;
@@ -104,12 +101,10 @@ body {
   -webkit-clip-path: inset(0 0 0 0);
   clip-path: inset(0 0 0 0);
 }
-
 .screen__background__shape {
   transform: rotate(45deg);
   position: absolute;
 }
-
 .screen__background__shape1 {
   height: 520px;
   width: 520px;
@@ -118,7 +113,6 @@ body {
   right: 120px;
   border-radius: 0 72px 0 0;
 }
-
 .screen__background__shape2 {
   height: 220px;
   width: 220px;
@@ -127,7 +121,6 @@ body {
   right: 0;
   border-radius: 32px;
 }
-
 .screen__background__shape3 {
   height: 540px;
   width: 190px;
@@ -136,7 +129,6 @@ body {
   right: 0;
   border-radius: 32px;
 }
-
 .screen__background__shape4 {
   height: 400px;
   width: 200px;
@@ -145,24 +137,20 @@ body {
   right: 50px;
   border-radius: 60px;
 }
-
 .login {
   width: 320px;
   padding: 30px;
   padding-top: 156px;
 }
-
 .login__field {
   padding: 20px 0px;
   position: relative;
 }
-
 .login__icon {
   position: absolute;
   top: 30px;
   color: #7875B5;
 }
-
 .login__input {
   border: none;
   border-bottom: 2px solid #D1D1D4;
@@ -173,14 +161,12 @@ body {
   width: 75%;
   transition: .2s;
 }
-
 .login__input:active,
 .login__input:focus,
 .login__input:hover {
   outline: none;
   border-bottom-color: #696b6a;
 }
-
 .login__submit {
   background: ##696b6a;
   font-size: 14px;
@@ -198,20 +184,17 @@ body {
   cursor: pointer;
   transition: .2s;
 }
-
 .login__submit:active,
 .login__submit:focus,
 .login__submit:hover {
   border-color: #6A679E;
   outline: none;
 }
-
 .button__icon {
   font-size: 24px;
   margin-left: auto;
   color: #7875B5;
 }
-
 .social-login {
   position: absolute;
   height: 140px;
@@ -221,20 +204,17 @@ body {
   right: 0px;
   color: #fff;
 }
-
 .social-icons {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .social-login__icon {
   padding: 20px 10px;
   color: #fff;
   text-decoration: none;
   text-shadow: 0px 0px 8px #7875B5;
 }
-
 .social-login__icon:hover {
   transform: scale(1.5);
 }

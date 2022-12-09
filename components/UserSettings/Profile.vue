@@ -7,7 +7,7 @@
     <p>{{ email }}</p>
 
          <input type="file" accept="image/*" @change="onChange" />
-        <input id="text" type="text"  v-model="content" placeholder="Change Password" name="content" />
+        <input id="text" type="password"  v-model="content" placeholder="Change Password" name="content" />
         <button @click="password" id = 'send'>Change Password</button>
   </div>
 </div>

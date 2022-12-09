@@ -1,6 +1,5 @@
 const pkg = require('./package')
 
-
 module.exports = {
   mode: 'universal',
 
@@ -40,20 +39,20 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-   ssr: true,
+  ssr: true,
   target: 'server',
 
-   modules: [
+  modules: [
     '@nuxtjs/axios',
 
-     'cookie-universal-nuxt',
+    'cookie-universal-nuxt',
 
     // With options
-    ['cookie-universal-nuxt', { alias: 'cookiz' }], 
+    ['cookie-universal-nuxt', { alias: 'cookiz' }]
   ],
 
   axios: {
-    baseURL: 'http://localhost:8000', // Used as fallback if no runtime config is provided
+    baseURL: 'http://localhost:8000' // Used as fallback if no runtime config is provided
   },
 
   publicRuntimeConfig: {
@@ -69,19 +68,13 @@ module.exports = {
   },
 
   proxy: {
-  '/api/': { target: 'http://localhost:8000/', pathRewrite: {'^/api/': ''}, changeOrigin: true }
+    '/api/': { target: 'http://localhost:8000/', pathRewrite: { '^/api/': '' }, changeOrigin: true }
   },
-  
+
   /*
   ** Build configuration
   */
   build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
 
-    }
   }
 }
-
