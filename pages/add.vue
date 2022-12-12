@@ -27,24 +27,7 @@ export default {
   },
   methods: {
     submitFile () {
-      const formData = new FormData()
-      formData.append('image', this.file)
-      formData.append('title', this.title)
-      formData.append('content', this.content)
-      const cookieValue = document.cookie.split('; ').find(row => row.startsWith('jwt=')).split('=')[1]
-      this.$axios.$post('/api/post_image',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `${cookieValue}`
-          }
-        },
-        window.location.reload()).then(function () {
-      })
-        .catch(function () {
-          return 'FAILURE!!'
-        })
+      this.$store.dispatch('post/addPosts', { file: this.file, title: this.title, content: this.content })
     },
     handleFileUpload () {
       this.file = this.$refs.file.files[0]

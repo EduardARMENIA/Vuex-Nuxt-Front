@@ -26,19 +26,6 @@ export default {
       title: { type: String, required: true },
       description: { type: String, required: true },
       ['comments']: { type: Array, required: true },
-  },
-   data() {
-          return {
-            content: '',
-          };
-  },    
-  method: {
-     submitForm(id){
-            alert(id)
-            alert(this.content)
-            this.$axios.$post(`http://localhost:8000/api/${id}/comment`, {content:this.content})
-            window.location.reload()
-      },
-  }        
+  },      
  } 
 </script>

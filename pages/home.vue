@@ -3,7 +3,7 @@
     <div class="main">
       <div>
         <post
-          v-for="todo in todos"
+          v-for="todo in companies()"
           :id="todo._id"
           :key="todo.id"
           :author="todo.author"
@@ -19,42 +19,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Post from '@/components/Post'
 export default {
   components: { Post },
   middleware: ['auth'],
-  data () {
-    return {
-      todos: []
-    }
-  },
-
   mounted () {
     this.created()
   },
   methods: {
-
-    async created () {
-      try {
-        const response = await this.$axios.$get('/api/post')
-        this.todos = response
-        for (let i = 0; i < this.todos.length; i++) {
-          const url = `http://localhost:8000/api/${this.todos[i].img[0]}/post_image`
-          const options = {
-            method: 'GET'
-          }
-          const response = await fetch(url, options)
-          const imageBlob = await response.blob()
-          const imageObjectURL = URL.createObjectURL(imageBlob)
-          this.todos[i].img = (imageObjectURL)
-        }
-      } catch (e) {
-        return (e)
-      }
+    ...mapGetters({
+      companies: 'post/getUsersNames'
+    }),
+    created () {
+      this.$store.dispatch('post/getPosts')
     },
-    async submitForm (id, content) {
-      await this.$axios.$post(`/api/${id}/comment`, { content })
-      window.location.reload()
+    submitForm (id, content) {
+      this.$store.dispatch('post/addComment', { id, content })
     }
   }
 }

@@ -38,7 +38,6 @@
 export default {
   data () {
     return {
-      todos: [],
       name: '',
       email: '',
       password: ''
@@ -46,12 +45,8 @@ export default {
   },
   methods: {
 
-    async submit () {
-      const post = await this.$axios.$post('/api/register', { name: this.name, email: this.email, password: this.password })
-      if (post.message === 'success') {
-        this.$store.dispatch('login')
-        this.$router.push('/')
-      }
+    submit () {
+      this.$store.dispatch('auth/register', { name: this.name, email: this.email, password: this.password })
     }
 
   }

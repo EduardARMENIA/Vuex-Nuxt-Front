@@ -18,39 +18,6 @@ export default {
       id: { required: true },
       name: { type: String, required: true },
       email: { type: String, required: true },
-  },
-  data() {
-          return {
-            content: '',
-            item:{
-             image : null,
-             imageUrl: null
-            },
-          };
-  },        
-   methods:{
-             onChange(e) {
-                const file = e.target.files[0]
-                this.item.imageUrl = URL.createObjectURL(file)
-                let images = new FormData();
-                images.append('image', file); 
-                const cookieValue = document.cookie.split('; ').find((row) => row.startsWith('jwt=')).split('=')[1];       
-                this.$axios.$post(`http://localhost:8000/api/profile_image`, images,  {
-                     headers: {Authorization:  `${cookieValue}`}
-                })
-                window.location.reload()
-             }, 
-             password(){
-                 const cookieValue = document.cookie.split('; ').find((row) => row.startsWith('jwt=')).split('=')[1];  
-                 const headers = {
-                   'Content-Type': 'application/json',
-                   'Authorization':  `${cookieValue}`
-                 }      
-                 this.$axios.$post('http://localhost:8000/api/change-password', {content:this.content},{
-                    headers: headers
-                 })
-            },
-  
   }
  } 
 </script>

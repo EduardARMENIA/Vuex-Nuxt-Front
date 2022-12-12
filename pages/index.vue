@@ -37,24 +37,17 @@
 </template>
 
 <script>
-import Token from '~/helper/check.js'
 export default {
   data () {
     return {
-      todos: [],
       email: '',
       password: ''
     }
   },
   methods: {
 
-    async submit () {
-      const post = await this.$axios.$post('/api/login', { email: this.email, password: this.password })
-      if (post.message === 'success') {
-        Token.save(post.token),
-        this.$store.dispatch('login')
-        this.$router.push('/home')
-      }
+    submit () {
+      this.$store.dispatch('auth/login', { email: this.email, password: this.password })
     }
 
   }

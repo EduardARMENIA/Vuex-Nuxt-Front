@@ -3,7 +3,6 @@
  <template>
 
     <div class="card">
-    <h4>Your publications </h4>
   <img  :src="`${img}`"style="width:100%">
   <div class="container">
     <h4>author: {{ author }}</b></h4>
@@ -34,14 +33,6 @@ export default {
           return {
             content: '',
           };
-  },    
-  method: {
-     submitForm(id){
-            alert(id)
-            alert(this.content)
-            this.$axios.$post(`http://localhost:8000/api/${id}/comment`, {content:this.content})
-            window.location.reload()
-      },
-  }        
+  },          
  } 
 </script>
