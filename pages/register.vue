@@ -1,36 +1,38 @@
-
 <template>
   <div>
-    <div class="container">
-      <div class="screen">
-        <div class="screen__content">
-          <div class="login">
-            <div class="login__field">
-              <i class="login__icon fas fa-lock" />
-              <input v-model="name" class="login__input" type="text" placeholder="Name"><br>
-            </div>
-            <div class="login__field">
-              <i class="login__icon fas fa-user" />
-              <input v-model="email" class="login__input" type="email" placeholder="Email"><br>
-            </div>
-            <div class="login__field">
-              <i class="login__icon fas fa-lock" />
-              <input v-model="password" class="login__input" type="password" placeholder="Password"><br>
-            </div>
-            <button class="button login__submit" @click="submit">
-              <span class="button__text">Register Now</span>
-              <i class="button__icon fas fa-chevron-right" />
-            </button>
-          </div>
+    <div class="block">
+      <div>
+        <h1>Instagram</h1>
+        <p class="one">
+          Зарегистрируйтесь, чтобы смотреть фото и видео ваших друзей.
+        </p>
+        <div class="inputs">
+          <input v-model="name" type="email" placeholder="Name">
+          <input v-model="email" type="email" placeholder="Email">
+          <input v-model="password" type="password" placeholder="Password">
         </div>
-        <div class="screen__background">
-          <span class="screen__background__shape screen__background__shape4" />
-          <span class="screen__background__shape screen__background__shape3" />
-          <span class="screen__background__shape screen__background__shape2" />
-          <span class="screen__background__shape screen__background__shape1" />
-        </div>
+        <p>Люди, которые пользуются нашим сервисом,<br> могли загрузить вашу контактную информацию <br>в Instagram. Подробнее</p>
+        <p>Регистрируясь, вы принимаете наши Условия,<br> Политику конфиденциальности и Политику в <br>отношении файлов cookie.</p>
+        <button class="reg" @click="submit">
+          Registration
+        </button>
       </div>
     </div>
+    <footer>
+      <ul>
+        <li>Meta</li>
+        <li>Информация</li>
+        <li>Блог</li>
+        <li>Вакансии</li>
+        <li>API</li>
+        <li>Конфиденциальность</li>
+        <li>Условия</li>
+        <li>Популярные аккаунты</li>
+        <li>Хэштеги</li>
+        <li>Места</li>
+        <li>Instagram Lite</li>
+      </ul>
+    </footer>
   </div>
 </template>
 
@@ -46,7 +48,7 @@ export default {
   methods: {
 
     submit () {
-      this.$store.dispatch('auth/register', { name: this.name, email: this.email, password: this.password })
+      this.$store.dispatch('authetification/auth/register', { name: this.name, email: this.email, password: this.password })
     }
 
   }
@@ -55,182 +57,115 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Raleway, sans-serif;
-}
-
-body {
-  background: linear-gradient(90deg, #C7C5F4, #776BCC);
-}
-
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-}
-
-.screen {
-  background: linear-gradient(90deg, #b0b5b1, #696b6a);
-  position: relative;
-  height: 600px;
-  width: 360px;
-  box-shadow: 0px 0px 24px #5C5696;
-}
-
-.screen__content {
-  z-index: 1;
-  position: relative;
-  height: 100%;
-}
-
-.screen__background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-  -webkit-clip-path: inset(0 0 0 0);
-  clip-path: inset(0 0 0 0);
-}
-
-.screen__background__shape {
-  transform: rotate(45deg);
-  position: absolute;
-}
-
-.screen__background__shape1 {
-  height: 520px;
-  width: 520px;
-  background: #7e8780;
-  top: -50px;
-  right: 120px;
-  border-radius: 0 72px 0 0;
-}
-
-.screen__background__shape2 {
-  height: 220px;
-  width: 220px;
-  background: #b0b5b1;
-  top: -172px;
-  right: 0;
-  border-radius: 32px;
-}
-
-.screen__background__shape3 {
-  height: 540px;
-  width: 190px;
-  background: #3c453e;
-  top: -24px;
-  right: 0;
-  border-radius: 32px;
-}
-
-.screen__background__shape4 {
-  height: 400px;
-  width: 200px;
-  background: #b0b5b1;
-  top: 420px;
-  right: 50px;
-  border-radius: 60px;
-}
-
-.login {
-  width: 320px;
-  padding: 30px;
-  padding-top: 156px;
-}
-
-.login__field {
-  padding: 20px 0px;
-  position: relative;
-}
-
-.login__icon {
-  position: absolute;
-  top: 30px;
-  color: #7875B5;
-}
-
-.login__input {
-  border: none;
-  border-bottom: 2px solid #D1D1D4;
-  background: none;
-  padding: 10px;
-  padding-left: 24px;
-  font-weight: 700;
-  width: 75%;
-  transition: .2s;
-}
-
-.login__input:active,
-.login__input:focus,
-.login__input:hover {
-  outline: none;
-  border-bottom-color: #696b6a;
-}
-
-.login__submit {
-  background: ##696b6a;
-  font-size: 14px;
-  margin-top: 30px;
-  padding: 16px 20px;
-  border-radius: 26px;
-  border: 1px solid #696b6a;
-  text-transform: uppercase;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  color:#696b6a;
-  box-shadow: 0px 2px 2px #5C5696;
-  cursor: pointer;
-  transition: .2s;
-}
-
-.login__submit:active,
-.login__submit:focus,
-.login__submit:hover {
-  border-color: #6A679E;
-  outline: none;
-}
-
-.button__icon {
-  font-size: 24px;
-  margin-left: auto;
-  color: #7875B5;
-}
-
-.social-login {
-  position: absolute;
-  height: 140px;
-  width: 160px;
-  text-align: center;
-  bottom: 0px;
-  right: 0px;
-  color: #fff;
-}
-
-.social-icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.social-login__icon {
-  padding: 20px 10px;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0px 0px 8px #7875B5;
-}
-
-.social-login__icon:hover {
-  transform: scale(1.5);
-}
-</style>
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+    .block{
+        height: 78vh;
+        width: 40%;
+        border: 1px solid rgba(128, 128, 128, 0.363);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        margin: 20px auto;
+        }
+        .block h1{
+            font-family: 'Lobster', cursive;
+            font-weight: 400;
+            font-size: 30px;
+            height: 60px;
+        }
+        .one{
+            color: grey;
+            font-size: 15px !important;
+        }
+        .block p{
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 13px;
+            text-align: center;
+            line-height: 30px;
+            color: rgb(63, 61, 61);
+        }
+        .block button{
+            width: 250px;
+            height: 30px;
+            outline: none;
+            border: none;
+            background-color: rgb(40, 166, 224);
+            color: white;
+           font-family: sans-serif;
+           border-radius: 5px;
+           margin-top: 30px;
+        }
+        .block div{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .inputs{
+            display: flex;
+            flex-direction: column;
+        }
+        .inputs{
+            margin-top: 10px;
+        }
+        .inputs input{
+            margin-top: 20px;
+            width: 380px;
+            height: 40px;
+            outline: none;
+          border: 1px solid rgba(128, 128, 128, 0.363);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding-left: 10px;
+            border-radius: 5px;
+            background-color: rgba(211, 201, 201, 0.192);
+        }
+        ::-webkit-input-placeholder{
+            color: grey;
+        }
+        .reg{
+            width: 150px;
+            height: 30px;
+            outline: none;
+            border: none;
+            background-color: rgb(40, 166, 224);
+            color: white;
+           font-family: sans-serif;
+           border-radius: 5px;
+        }
+    footer{
+      width: 100%;
+      display: flex;
+    }
+    footer ul{
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+    }
+    footer ul li{
+      text-decoration: none;
+      font-family: sans-serif;
+      color: grey !important;
+      font-size: 13px;
+    }
+        @media (max-width:900px){
+            img{
+                display: none;
+            }
+            main{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+            .block{
+                width: 85%;
+            }
+            footer{
+              display: flex;
+              flex-direction: column;
+            }
+        }
+    </style>

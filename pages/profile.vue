@@ -8,6 +8,7 @@
         :name="todo.name"
         :img="todo.img"
         :email="todo.email"
+        @password="password"
       />
     </div>
     <div>
@@ -35,6 +36,7 @@ export default {
   middleware: ['auth'],
   data () {
     return {
+      todos: [],
       item: {
         image: null,
         imageUrl: null
@@ -49,19 +51,19 @@ export default {
   },
   methods: {
     ...mapGetters({
-      posts: 'profile/getPosts',
-      users: 'profile/getUsers'
+      posts: 'profile/profile/getPosts',
+      users: 'profile/profile/getUsers'
     }),
     created () {
-      this.$store.dispatch('profile/Profile')
+      this.$store.dispatch('profile/profile/Profile')
     },
 
     submitForm (id, content) {
-      this.$store.dispatch('post/addComment', { id, content })
+      this.$store.dispatch('post/post/addComment', { id, content })
     },
 
-    password () {
-      this.$store.dispatch('profile/ChangePassword', { content: this.content })
+    password (content) {
+      this.$store.dispatch('profile/profile/ChangePassword', { content })
     }
 
   }

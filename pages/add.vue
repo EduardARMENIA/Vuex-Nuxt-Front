@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     submitFile () {
-      this.$store.dispatch('post/addPosts', { file: this.file, title: this.title, content: this.content })
+      this.$store.dispatch('post/post/addPosts', { file: this.file, title: this.title, content: this.content })
     },
     handleFileUpload () {
       this.file = this.$refs.file.files[0]
@@ -42,7 +42,7 @@ export default {
         display: flex;
         align-items:center;
         flex-direction:column;
-        margin-top:50px;
+        margin-top: 150px;
     }
     .form-group input{
       width:300px !important;

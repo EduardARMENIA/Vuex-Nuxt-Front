@@ -12,26 +12,19 @@ export const actions = {
   async Users ({ commit }) {
     try {
       const cookieValue = this.$cookiz.get('jwt')
-      const response = await fetch('http://localhost:8000/api/users-name', {
-        headers: { 'Content-Type': 'application/json', Authorization: `${cookieValue}` },
-        credentials: 'include'
+      const response = await this.$axios.$get('/api/users', {
+        headers: {
+          Authorization: `${cookieValue}`
+        }
       })
-      const content = await response.json()
-      const todos = content
+      const todos = await response
 
       for (let i = 0; i < todos.length; i++) {
         if (todos[i].img[0] === undefined) {
           todos[i].img = ('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png')
         } else {
-          const url = `http://localhost:8000/api/${todos[i].img[0]}/profile_image`
-
-          const options = {
-            method: 'GET'
-          }
-
-          const response = await fetch(url, options)
-          const imageBlob = await response.blob()
-          const imageObjectURL = URL.createObjectURL(imageBlob)
+          const response = await this.$axios.$get(`/api/${todos[i].img[0]}/profile_image`, { responseType: 'blob' })
+          const imageObjectURL = URL.createObjectURL(response)
           todos[i].img = (imageObjectURL)
         }
       }

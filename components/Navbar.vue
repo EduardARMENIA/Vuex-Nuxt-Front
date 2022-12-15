@@ -1,52 +1,32 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Nuxt Social Media</a>
-
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <nuxt-link exact no-prefetch active-class="active"  v-if="hasToken" class="nav-link" to="/home">
-            Home
-          </nuxt-link>
-        </li>
-        <li class="nav-item">
-          <nuxt-link active-class="active"  v-if="this.$store.state.token" class="nav-link" to="/about">
-            About
-          </nuxt-link>
-        </li>
-         <li class="nav-item">
-          <nuxt-link active-class="active"  v-if="this.$store.state.token" class="nav-link" to="/add">
-            Add Post
-          </nuxt-link>
-        </li>
-        <li class="nav-item">
-          <nuxt-link active-class="active"  v-if="this.$store.state.token" class="nav-link" to="/profile">
-            Profile
-          </nuxt-link>
-        </li>
-         <li class="nav-item">
-          <nuxt-link active-class="active"  v-if="this.$store.state.token" class="nav-link" to="/users">
-            Users
-          </nuxt-link>
-        </li>
-        <li class="nav-item" v-if="!this.$store.state.token">
-          <nuxt-link active-class="active" class="nav-link" to="/">
+<nav class="navbar">
+    <div class="nav-wrapper">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" class="brand-img" alt="">
+        <div class="nav-items">
+            <nuxt-link active-class="active"  v-if="this.$store.state.token"  to="/home">
+                 <img   src="https://images.vexels.com/media/users/3/147094/isolated/preview/055a10de0c31e98eef1451f742c32345-instagram-home-icon.png" class="icon" alt="">
+            </nuxt-link>
+            <nuxt-link active-class="active"  v-if="this.$store.state.token"  to="/add">
+                 <img  v-if="this.$store.state.token"  src="https://cdn.iconscout.com/icon/free/png-256/add-instagram-story-4941588-4108988.png" class="icon" alt="" to="/add" >
+            </nuxt-link>
+             <nuxt-link active-class="active"  v-if="this.$store.state.token"  to="/profile">
+                 <img  v-if="this.$store.state.token" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFq_XICspIbMdmG2muTxEwmrZfmtUn0TDdT1rq3CP-MsHNyuBDCMhSnV9Phd8QnGNr9Uo&usqp=CAU" class="icon" alt="">
+            </nuxt-link>
+             <nuxt-link active-class="active"  v-if="this.$store.state.token"  to="/users">
+                 <img  v-if="this.$store.state.token" src="https://cdn-icons-png.flaticon.com/512/2583/2583138.png" class="icon" alt="">
+            </nuxt-link>
+            
+            <img v-else @click.prevent="logout" v-if="this.$store.state.token" src="https://cdn-icons-png.flaticon.com/512/126/126467.png" class="icon" alt="">
+            <nuxt-link active-class="active"  v-if="!this.$store.state.token"  to="/">
             Login
-          </nuxt-link>
-        </li>
-        <li class="nav-item" v-if="!this.$store.state.token">
-          <nuxt-link active-class="active" class="nav-link" to="/register">
+            </nuxt-link>
+            <nuxt-link active-class="active"  v-if="!this.$store.state.token"  to="/register">
             Register
-          </nuxt-link>
-        </li>
-        <li class="nav-item" v-else>
-          <a @click.prevent="logout" class="nav-link" href="#">
-            Logout
-          </a>
-        </li>
-      </ul>
+            </nuxt-link>
+            <div class="icon user-profile"></div>
+        </div>
     </div>
-  </nav>
+</nav>
 </template>
 
 
@@ -69,3 +49,87 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*:focus{
+    outline: none;
+}
+
+body{
+    width: 100%;
+    background: #fafafa;
+    position: relative;
+    font-family: 'roboto', sans-serif;
+}
+
+.navbar{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #fff;
+    border-bottom: 1px solid #dfdfdf;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+}
+
+.nav-wrapper{
+    width: 70%;
+    max-width: 1000px;
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-img{
+    height: 100%;
+    margin-top: 5px;
+}
+
+.search-box{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 25px;
+    background: #fafafa;
+    border: 1px solid #dfdfdf;
+    border-radius: 2px;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.search-box::placeholder{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.nav-items{
+    height: 40px;
+    position: relative;
+
+}
+
+.icon{
+    height: 100%;
+    cursor: pointer;
+    margin: 0 20px;
+    display: inline-block;
+}
+
+.user-profile{
+    width: 22px;
+    border-radius: 50%;
+    background-size: cover;
+}
+</style>

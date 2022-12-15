@@ -49,15 +49,15 @@ export default {
   },
   methods: {
     ...mapGetters({
-      posts: '_id/getPosts',
-      users: '_id/getUsers'
+      posts: 'users/id/_id/getPosts',
+      users: 'users/id/_id/getUsers'
     }),
     created () {
       const id = this.$route.params.id
-      this.$store.dispatch('_id/ProfileById', { id })
+      this.$store.dispatch('users/id/_id/ProfileById', { id })
     },
     submitForm (id, content) {
-      this.$store.dispatch('post/addComment', { id, content })
+      this.$store.dispatch('post/post/addComment', { id, content })
     }
   }
 }

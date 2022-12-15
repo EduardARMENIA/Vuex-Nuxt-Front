@@ -8,58 +8,50 @@
 
          <input type="file" accept="image/*" @change="onChange" />
         <input id="text" type="password"  v-model="content" placeholder="Change Password" name="content" />
-        <button @click="password" id = 'send'>Change Password</button>
+        <button @click="$emit('password', content)" id = 'send'>Change Password</button>
   </div>
-      <h4>Your publications </h4>
+  <h4>Your Posts</h4>
 </div>
 </template>        
 
 
 
 <script>
-import { mapGetters } from 'vuex'
-import Profile from '@/components/UserSettings/Profile'
-import UserPost from '@/components/UserSettings/UserPost'
 export default {
-  components: { UserPost, Profile },
-  middleware: ['auth'],
-  data () {
-    return {
-      item: {
-        image: null,
-        imageUrl: null
-      },
-      content: '',
-      img: ''
-    }
+  props: {
+      img: { required: false },
+      id: { required: true },
+      name: { type: String, required: true },
+      email: { type: String, required: true },
   },
-
-  mounted () {
-    this.created()
-  },
-  methods: {
-    ...mapGetters({
-      posts: 'profile/getPosts',
-      users: 'profile/getUsers'
-    }),
-    created () {
-      this.$store.dispatch('profile/Profile')
-    },
-
-    submitForm (id, content) {
-      this.$store.dispatch('post/addComment', { id, content })
-    },
-
-    password () {
-      this.$store.dispatch('profile/ChangePassword', { content: this.content })
-    }
-
+  data() {
+          return {
+            content: '',
+            item:{
+             image : null,
+             imageUrl: null
+            },
+          };
+  },        
+   methods:{
+             onChange(e) {
+                const file = e.target.files[0]
+                this.item.imageUrl = URL.createObjectURL(file)
+                let images = new FormData();
+                images.append('image', file); 
+                const cookieValue = document.cookie.split('; ').find((row) => row.startsWith('jwt=')).split('=')[1];       
+                this.$axios.$post(`http://localhost:8000/api/profile_image`, images,  {
+                     headers: {Authorization:  `${cookieValue}`}
+                })
+                window.location.reload()
+             } 
+  
   }
-}
+ } 
 </script>
-
-<style>
+<style scoped>
 .card {
+  margin-top: 150px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */

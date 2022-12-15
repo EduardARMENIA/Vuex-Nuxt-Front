@@ -13,28 +13,22 @@ export const mutations = {
 }
 
 export const actions = {
-  async getPosts ({ commit, getters, dispatch }) {
-    const response = await this.$axios.$get('/api/post')
-    const Post = response
+  async getPosts ({ commit }) {
+    const Post = await this.$axios.$get('/api/post')
     for (let i = 0; i < Post.length; i++) {
-      const url = `http://localhost:8000/api/${Post[i].img[0]}/post_image`
-      const options = {
-        method: 'GET'
-      }
-      const response = await fetch(url, options)
-      const imageBlob = await response.blob()
-      const imageObjectURL = URL.createObjectURL(imageBlob)
+      const response = await this.$axios.$get(`/api/${Post[i].img[0]}/post_image`, { responseType: 'blob' })
+      const imageObjectURL = URL.createObjectURL(response)
       Post[i].img = (imageObjectURL)
     }
     commit('setPost', Post)
   },
-  async addPosts ({ commit, getters, dispatch }, data) {
+  async addPosts ({}, data) {
     const cookieValue = this.$cookiz.get('jwt')
     const formData = new FormData()
     formData.append('image', data.file)
     formData.append('title', data.title)
     formData.append('content', data.content)
-    this.$axios.$post('/api/post_image',
+    await this.$axios.$post('/api/post_image',
       formData,
       {
         headers: {
@@ -43,7 +37,7 @@ export const actions = {
         }
       })
   },
-  async addComment ({ commit }, data) {
+  async addComment ({}, data) {
     await this.$axios.$post(`/api/${data.id}/comment`, { content: data.content })
     window.location.reload()
   }

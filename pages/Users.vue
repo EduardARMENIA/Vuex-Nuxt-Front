@@ -1,9 +1,13 @@
 <template>
-  <div id="app">
-    <div class="main">
-      <div v-for="(todo, key) in users()" :key="key">
-        <img :src="`${ todo.img}`" height="400" width="400">
-        <h6>{{ todo.name }}</h6>
+  <div>
+    <h4>All Users</h4>
+    <div v-for="(todo, key) in users()" :key="key">
+      <div class="card">
+        <img :src="`${todo.img}`"style="width:100%">
+        <div class="container">
+          <h4><b>{{ todo.name }}</b></h4>
+          <p>{{ todo.email }}</p>
+        </div>
         <button @click.prevent="openUser(todo._id)">
           See Profile
         </button>
@@ -21,10 +25,10 @@ export default {
   },
   methods: {
     ...mapGetters({
-      users: 'users/getUsers'
+      users: 'users/users/getUsers'
     }),
     created () {
-      this.$store.dispatch('users/Users')
+      this.$store.dispatch('users/users/Users')
     },
     openUser (user) {
       this.$router.push('/User/' + user)
@@ -32,3 +36,17 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+  width: 40%
+}
+
+/* Add rounded corners to the top left and the top right corner of the image */
+img {
+  border-radius: 5px 5px 0 0;
+}
+</style>

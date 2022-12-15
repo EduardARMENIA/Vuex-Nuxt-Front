@@ -29,13 +29,13 @@ export default {
   },
   methods: {
     ...mapGetters({
-      companies: 'post/getUsersNames'
+      companies: 'post/post/getUsersNames'
     }),
     created () {
-      this.$store.dispatch('post/getPosts')
+      this.$store.dispatch('post/post/getPosts')
     },
     submitForm (id, content) {
-      this.$store.dispatch('post/addComment', { id, content })
+      this.$store.dispatch('post/post/addComment', { id, content })
     }
   }
 }
