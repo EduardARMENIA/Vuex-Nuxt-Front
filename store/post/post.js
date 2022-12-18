@@ -40,7 +40,39 @@ export const actions = {
   async addComment ({}, data) {
     await this.$axios.$post(`/api/${data.id}/comment`, { content: data.content })
     window.location.reload()
+  },
+  async delatePosts ({}, data) {
+    const cookieValue = this.$cookiz.get('jwt')
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `${cookieValue}`
+    }
+    await this.$axios.$post(`/api/${data.id}/post_delate`, {}, {
+      headers
+    })
+  },
+  async changeDescription ({}, data) {
+    const cookieValue = this.$cookiz.get('jwt')
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `${cookieValue}`
+    }
+    await this.$axios.$post(`/api/${data.id}/description_change`, { content: data.content }, {
+      headers
+    })
+  },
+
+  async changeTitle ({}, data) {
+    const cookieValue = this.$cookiz.get('jwt')
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `${cookieValue}`
+    }
+    await this.$axios.$post(`/api/${data.id}/title_change`, { title: data.content }, {
+      headers
+    })
   }
+
 }
 
 export const getters = {

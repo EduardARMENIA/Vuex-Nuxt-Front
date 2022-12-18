@@ -3,17 +3,24 @@
     <div class="wrapper">
         <div class="left-col">
             <div class="post">
+            <div style="display:flex;">
+            <h6 class="comment-box" style="color:rgb(194, 57, 57 );">Delete this post</h6>
+                <button class="comment-btn"  @click="$emit('delate', id)" style="color:rgb(255, 0, 0  );">Delate</button>
+                </div>
+                <input type="text" class="comment-box"  v-model="descriptions"  placeholder="Change description">
+                <button  @click="$emit('changeDescription', id, descriptions)" class="comment-btn">Change</button>
+                <input type="text" class="comment-box"  v-model="titles"  placeholder="Change Title">
+                <button  @click="$emit('changeTitle', id, titles)" class="comment-btn">Change</button>
                 <div class="info">
                    
-                    <img src="img/option.PNG" class="options" alt="">
+                    <p class="description"><span>User </span>{{ author }} </p>
                 </div>
                 <img  :src="`${img}`" class="post-image" alt="">
                 <div class="post-content">
                     <div class="reaction-wrapper">
                         <img src="https://image.similarpng.com/very-thumbnail/2021/08/Instagram-Likes-icon-on-trabsparent-background-PNG.png" class="icon" alt="">
                         <img src="https://cdn-icons-png.flaticon.com/128/5338/5338282.png" class="icon" alt="">
-                        <img src="img/send.PNG" class="icon" alt="">
-                        <img src="img/save.PNG" class="save icon" alt="">
+
                     </div>
                     <p class="description"><span>title </span>{{ title }} </p>
                     <p class="description"><span>desription </span>{{ description }} </p>
@@ -24,7 +31,6 @@
 
                 </div>
                 <div class="comment-wrapper">
-                    <img src="img/smile.PNG" class="icon" alt="">
                     <input type="text" class="comment-box"  v-model="content"  placeholder="Add a comment">
                     <button  @click="$emit('success', id, content)" class="comment-btn">post</button>
                 </div>
@@ -37,7 +43,6 @@
 export default {
   props: {
       img: { required: true },
-      profile: { required: true },
       id:  { required: true },
       author: { type: String, required: true },
       title: { type: String, required: true },
@@ -47,17 +52,20 @@ export default {
   data() {
           return {
             content: '',
+            descriptions: '',
+            titles: ''
           };
   }        
  } 
 </script>
 <style scoped>
 .post{
-    width: 60%;
+    width: 67%;
     height: auto;
     background: #fff;
     border: 1px solid #dfdfdf;
     margin-top: 40px;
+    margin-left:5%;
 }
 
 .info{
@@ -178,6 +186,15 @@ export default {
 
 .reaction-wrapper .icon.save{
     margin-left: auto;
+}
+@media (max-width:700px){
+    .post{
+    width:100%;
+    margin-left:0%;
+    }
+    .post-image {
+    background-position-x: 15% !important;
+    }
 }
 </style>
 

@@ -15,15 +15,15 @@
              <nuxt-link active-class="active"  v-if="this.$store.state.token"  to="/users">
                  <img  v-if="this.$store.state.token" src="https://cdn-icons-png.flaticon.com/512/2583/2583138.png" class="icon" alt="">
             </nuxt-link>
-            
-            <img v-else @click.prevent="logout" v-if="this.$store.state.token" src="https://cdn-icons-png.flaticon.com/512/126/126467.png" class="icon" alt="">
-            <nuxt-link active-class="active"  v-if="!this.$store.state.token"  to="/">
+            <nuxt-link active-class="active"  v-if="this.$store.state.token"  to="/users">
+                 <img  @click.prevent="logout" v-if="this.$store.state.token" src="https://cdn-icons-png.flaticon.com/512/126/126467.png" class="icon" alt="">
+            </nuxt-link>
+            <nuxt-link active-class="actives"  v-if="!this.$store.state.token"  to="/">
             Login
             </nuxt-link>
-            <nuxt-link active-class="active"  v-if="!this.$store.state.token"  to="/register">
+            <nuxt-link active-class="actives1"  v-if="!this.$store.state.token" id="act"  to="/register">
             Register
             </nuxt-link>
-            <div class="icon user-profile"></div>
         </div>
     </div>
 </nav>
@@ -90,6 +90,23 @@ body{
     justify-content: space-between;
     align-items: center;
 }
+.nav-items{
+    width:30%;
+    height:80px !important;
+    display:flex;
+    margin:0px auto;
+}
+.nav-items a{
+    display:flex;
+    align-items:center;
+}
+
+.actives{
+    margin-left:300px;
+}
+#act{
+    margin-left:20px ;
+}
 
 .brand-img{
     height: 100%;
@@ -114,14 +131,9 @@ body{
     color: rgba(0, 0, 0, 0.5);
 }
 
-.nav-items{
-    height: 40px;
-    position: relative;
-
-}
 
 .icon{
-    height: 100%;
+    height: 50%;
     cursor: pointer;
     margin: 0 20px;
     display: inline-block;
@@ -131,5 +143,19 @@ body{
     width: 22px;
     border-radius: 50%;
     background-size: cover;
+}
+@media (max-width:700px){
+.navbar{
+    width:70%;
+}
+    .icon{
+       height:30%;
+    }
+    .brand-img{
+       height:70%;
+    }
+    .actives{
+    margin-left:170px;
+    }
 }
 </style>

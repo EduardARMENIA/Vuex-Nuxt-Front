@@ -16,13 +16,15 @@
         v-for="post in posts()"
         :id="post._id"
         :key="post.id"
-        s
         :author="post.author"
         :description="post.content"
         :title="post.title"
         :comments="post.comments"
         :img="post.img"
         @success="submitForm"
+        @delate="delatePost"
+        @changeDescription="changeDescription"
+        @changeTitle="changeTitle"
       />
     </div>
   </div>
@@ -64,6 +66,20 @@ export default {
 
     password (content) {
       this.$store.dispatch('profile/profile/ChangePassword', { content })
+    },
+    delatePost (id) {
+      this.$store.dispatch('post/post/delatePosts', { id })
+      window.location.reload()
+    },
+
+    changeDescription (id, content) {
+      this.$store.dispatch('post/post/changeDescription', { id, content })
+      window.location.reload()
+    },
+
+    changeTitle (id, content) {
+      this.$store.dispatch('post/post/changeTitle', { id, content })
+      window.location.reload()
     }
 
   }
