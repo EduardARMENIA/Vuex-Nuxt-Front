@@ -34,13 +34,13 @@ export default {
           };
   },        
    methods:{
-             onChange(e) {
+             async onChange(e) {
                 const file = e.target.files[0]
                 this.item.imageUrl = URL.createObjectURL(file)
                 let images = new FormData();
                 images.append('image', file); 
                 const cookieValue = this.$cookiz.get('jwt')     
-                this.$axios.$post(`/api/profile_image`, images,  {
+                await this.$axios.$post(`/api/profile_image`, images,  {
                      headers: {Authorization:  `${cookieValue}`}
                 })
                 window.location.reload()
