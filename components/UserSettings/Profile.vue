@@ -39,8 +39,8 @@ export default {
                 this.item.imageUrl = URL.createObjectURL(file)
                 let images = new FormData();
                 images.append('image', file); 
-                const cookieValue = document.cookie.split('; ').find((row) => row.startsWith('jwt=')).split('=')[1];       
-                this.$axios.$post(`http://localhost:8000/api/profile_image`, images,  {
+                const cookieValue = this.$cookiz.get('jwt')     
+                this.$axios.$post(`/api/profile_image`, images,  {
                      headers: {Authorization:  `${cookieValue}`}
                 })
                 window.location.reload()
