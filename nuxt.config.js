@@ -34,6 +34,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+       { src: '~/plugins/vue-cropper', ssr: false }
   ],
 
   /*
@@ -75,6 +76,8 @@ module.exports = {
   ** Build configuration
   */
   build: {
-
+    vendor: [
+      'vue-cropper'
+    ] 
   }
 }

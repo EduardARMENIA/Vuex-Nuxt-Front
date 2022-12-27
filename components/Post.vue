@@ -4,8 +4,12 @@
         <div class="left-col">
             <div class="post">
                 <div class="info">
-                 <p class="description"><span>User </span>{{ author }} </p>
+                 <button class="btn" @click.prevent="openUser(author_id)">
+                            See Profile
+                 </button> 
 
+                 <p class="description" ><span>User </span>{{ author }} </p>
+                   
 
                 </div>
                 <img  :src="`${img}`" class="post-image" alt="">
@@ -16,9 +20,16 @@
                     </div>
                     <p class="description"><span>title </span>{{ title }} </p>
                     <p class="description"><span>desription </span>{{ description }} </p>
-                    <p class="likes">1,012 likes</p>
+
+                    <p class="likes">{{ likes[0] }} likes</p>
+
+                     <button  class="likes" @click="addLike(id)">
+                             Like
+                    </button> 
                     <div v-for="(comments, x) in comments" :key="x">
-                       <p class="description"><span>comments </span> {{ comments.content }}</p>
+                       <p class="description" @click.prevent="openUser(author_id)">
+                            <span>{{ comments.author }} </span> {{ comments.content }}
+                       </p> 
                     </div>
 
                 </div>
@@ -37,7 +48,9 @@ export default {
   props: {
       img: { required: true },
       id:  { required: true },
+      ['likes']:  { type: Array, required: true },
       author: { type: String, required: true },
+      author_id: { type: Array, required: true },
       title: { type: String, required: true },
       description: { type: String, required: true },
       ['comments']: { type: Array, required: true },
@@ -45,8 +58,20 @@ export default {
   data() {
           return {
             content: '',
+            inputs: ''
           };
-  }
+  },
+
+   
+
+  methods: {
+    openUser (user) {
+      this.$router.push('/User/' + user)
+    },
+    addLike (id) {
+      this.$store.dispatch('post/post/addLike', {id})
+    }
+  }  
  }
 </script>
 <style scoped>

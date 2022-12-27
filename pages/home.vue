@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+  <search
+    @search="onChange"
+
+   />
     <div class="main">
       <div>
         <post
@@ -7,10 +11,12 @@
           :id="todo._id"
           :key="todo.id"
           :author="todo.author"
+          :author_id="todo.author_id"
           :description="todo.content"
           :title="todo.title"
           :comments="todo.comments"
           :img="todo.img"
+          :likes="todo.likes"
           @success="submitForm"
         />
       </div>
@@ -21,11 +27,17 @@
 <script>
 import { mapGetters } from 'vuex'
 import Post from '@/components/Post'
+import search from '@/components/search/search'
 export default {
-  components: { Post },
+  components: { Post, search },
   middleware: ['auth'],
   mounted () {
     this.created()
+  },
+  data() {
+          return {
+            inputs: '',
+          };
   },
   methods: {
     ...mapGetters({
@@ -34,6 +46,8 @@ export default {
     created () {
       this.$store.dispatch('post/post/getPosts')
     },
+
+
     submitForm (id, content) {
       this.$store.dispatch('post/post/addComment', { id, content })
     }
